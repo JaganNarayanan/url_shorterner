@@ -15,13 +15,18 @@ class UrlsController < ApplicationController
   def create
     #@url = Url.new(params[:url])
     @url = Url.new(url_params)
-    # byebug
     @url.shorten
     if @url.save
       redirect_to @url
     else
       render 'new'
     end
+  end
+
+  def destroy
+    @url = Url.find(params[:id])
+    @url.destroy
+    redirect_to urls_path
   end
 
   private
